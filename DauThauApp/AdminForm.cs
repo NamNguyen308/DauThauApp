@@ -26,12 +26,11 @@ namespace DauThauApp
             this.MaximumSize = this.Size;
             this.StartPosition = FormStartPosition.CenterScreen;
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
-
             this.btnDashboard.Click += new System.EventHandler(this.btnDashboard_Click);
             btnDashboard.BorderColor = Color.FromArgb(0, 120, 215); // Màu viền
-            btnDashboard.BorderThickness = 2;                        // Độ dày viền
-            btnDashboard.BorderRadius = 8;                           // Bo góc
-            btnDashboard.FillColor = navPanel.BackColor;                    // Màu nền
+            btnDashboard.BorderThickness = 1;                        // Độ dày viền
+            btnDashboard.BorderRadius = 1;                           // Bo góc
+            btnDashboard.FillColor = navPanel.BackColor;                  // Màu nền
             btnDashboard.ForeColor = Color.Black;                    // Màu chữ
             btnDashboard.HoverState.BorderColor = Color.FromArgb(0, 153, 255); // Viền khi hover
             btnDashboard.HoverState.FillColor = Color.FromArgb(240, 248, 255); // Màu nền khi hover
@@ -118,6 +117,11 @@ namespace DauThauApp
         }
 
         private void mainPanel_Paint_1(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void navPanel_Paint_1(object sender, PaintEventArgs e)
         {
 
         }

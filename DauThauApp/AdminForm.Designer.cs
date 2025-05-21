@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace DauThauApp
 {
@@ -36,56 +37,56 @@ namespace DauThauApp
             this.label1 = new System.Windows.Forms.Label();
             this.navPanel.SuspendLayout();
             this.SuspendLayout();
+
             // 
             // navPanel
             // 
             this.navPanel.Controls.Add(this.btnDashboard);
-            this.navPanel.Dock = System.Windows.Forms.DockStyle.Left;
             this.navPanel.FillColor = System.Drawing.Color.LightGray;
-            this.navPanel.Location = new System.Drawing.Point(0, 0);
+            this.navPanel.Dock = DockStyle.Left;
             this.navPanel.Name = "navPanel";
-            this.navPanel.Size = new System.Drawing.Size(200, 720);
+            this.navPanel.Size = new System.Drawing.Size(200, 720);  // Chiều cao 720 như form
             this.navPanel.TabIndex = 0;
+
             // 
             // btnDashboard
             // 
             this.btnDashboard.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnDashboard.ForeColor = System.Drawing.Color.White;
-            this.btnDashboard.Location = new System.Drawing.Point(12, 42);
+            this.btnDashboard.Location = new System.Drawing.Point(12, 37);
             this.btnDashboard.Name = "btnDashboard";
             this.btnDashboard.Size = new System.Drawing.Size(180, 45);
             this.btnDashboard.TabIndex = 0;
             this.btnDashboard.Text = "Dashboard";
             this.btnDashboard.Click += new System.EventHandler(this.btnDashboard_Click);
+
             // 
             // mainPanel
             // 
-            this.mainPanel.BackColor = System.Drawing.Color.White;
-            this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mainPanel.Location = new System.Drawing.Point(200, 0);
+            this.mainPanel.Dock = DockStyle.Fill;
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(1080, 720);
+            this.mainPanel.BackColor = System.Drawing.Color.White;
             this.mainPanel.TabIndex = 1;
-            this.mainPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.mainPanel_Paint_1);
+
             // 
-            // label1
+            // label1 (không dùng thì có thể xóa)
             // 
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(100, 23);
             this.label1.TabIndex = 0;
+
             // 
             // AdminForm
             // 
             this.ClientSize = new System.Drawing.Size(1280, 720);
-            this.Controls.Add(this.mainPanel);
-            this.Controls.Add(this.navPanel);
+            this.Controls.Add(this.mainPanel);     // Thêm mainPanel trước
+            this.Controls.Add(this.navPanel);      // navPanel dock trái
             this.Name = "AdminForm";
             this.Text = "Trang quản trị Admin";
             this.Load += new System.EventHandler(this.AdminForm_Load);
             this.navPanel.ResumeLayout(false);
             this.ResumeLayout(false);
-
         }
 
 

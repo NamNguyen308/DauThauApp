@@ -70,6 +70,18 @@
     <Compile Include="DashboardControl.Designer.cs">
       <DependentUpon>DashboardControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="DepartmentControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DepartmentControl.Designer.cs">
+      <DependentUpon>DepartmentControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DocumentControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DocumentControl.Designer.cs">
+      <DependentUpon>DocumentControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="InvestorForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -84,6 +96,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReminderControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReminderControl.Designer.cs">
+      <DependentUpon>ReminderControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="User.cs" />
     <EmbeddedResource Include="AdminForm.resx">
       <DependentUpon>AdminForm.cs</DependentUpon>
