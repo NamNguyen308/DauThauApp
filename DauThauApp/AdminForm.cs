@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -38,7 +39,13 @@ namespace DauThauApp
             currentUser = user;
             this.Text = "Trang quản trị Admin";
             this.StartPosition = FormStartPosition.CenterScreen;
+
+            ApplyStyleToButton(btnDashboard);
+            ApplyStyleToButton(btnDocuments);
+            ApplyStyleToButton(btnReminder);
+            ApplyStyleToButton(btnDepartment); // Nếu có
             ShowUserInfo();
+
         }
 
         private void ShowUserInfo()
@@ -122,6 +129,63 @@ namespace DauThauApp
         }
 
         private void navPanel_Paint_1(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void mainPanel_Paint_2(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void btnQuayLai_Click(object sender, EventArgs e)
+        {
+            mainPanel.Controls.Clear();
+            ShowUserInfo();
+        }
+
+        private void btnDepartment_Click(object sender, EventArgs e)
+        {
+            mainPanel.Controls.Clear();
+            DepartmentControl dept = new DepartmentControl();
+            dept.Dock = DockStyle.Fill;
+            mainPanel.Controls.Add(dept);
+        }
+
+        private void btnDocuments_Click(object sender, EventArgs e)
+        {
+            mainPanel.Controls.Clear(); // Xóa mọi nội dung hiện có
+            DocumentsControl docControl = new DocumentsControl(); // Tạo control mới
+            docControl.Dock = DockStyle.Fill; // Lấp đầy mainPanel
+            mainPanel.Controls.Add(docControl); // Thêm vào panel
+        }
+
+        private void btnReminder_Click(object sender, EventArgs e)
+        {
+            mainPanel.Controls.Clear();
+            ReminderControl reminder = new ReminderControl();
+            reminder.Dock = DockStyle.Fill;
+            mainPanel.Controls.Add(reminder);
+        }
+        private void ApplyStyleToButton(Guna2Button btn)
+        {
+            btn.BorderColor = Color.FromArgb(0, 120, 215); // Màu viền chuẩn
+            btn.BorderThickness = 1;
+            btn.BorderRadius = 1;
+            btn.FillColor = navPanel.BackColor; // Nền giống sidebar
+            btn.ForeColor = Color.Black;
+
+            // Hover
+            btn.HoverState.BorderColor = Color.FromArgb(0, 153, 255);
+            btn.HoverState.FillColor = Color.FromArgb(240, 248, 255);
+        }
+
+        private void navPanel_Paint_2(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label1_Click_1(object sender, EventArgs e)
         {
 
         }

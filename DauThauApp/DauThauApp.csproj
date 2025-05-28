@@ -82,12 +82,6 @@
     <Compile Include="DocumentControl.Designer.cs">
       <DependentUpon>DocumentControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="InvestorForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="InvestorForm.Designer.cs">
-      <DependentUpon>InvestorForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -102,6 +96,12 @@
     <Compile Include="ReminderControl.Designer.cs">
       <DependentUpon>ReminderControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="TenderForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TenderForm.Designer.cs">
+      <DependentUpon>TenderForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="User.cs" />
     <EmbeddedResource Include="AdminForm.resx">
       <DependentUpon>AdminForm.cs</DependentUpon>
@@ -112,8 +112,11 @@
     <EmbeddedResource Include="DashboardControl.resx">
       <DependentUpon>DashboardControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="InvestorForm.resx">
-      <DependentUpon>InvestorForm.cs</DependentUpon>
+    <EmbeddedResource Include="DepartmentControl.resx">
+      <DependentUpon>DepartmentControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DocumentControl.resx">
+      <DependentUpon>DocumentControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
@@ -127,6 +130,12 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ReminderControl.resx">
+      <DependentUpon>ReminderControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TenderForm.resx">
+      <DependentUpon>TenderForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

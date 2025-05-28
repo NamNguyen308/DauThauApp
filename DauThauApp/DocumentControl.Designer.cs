@@ -1,6 +1,6 @@
 ﻿namespace DauThauApp
 {
-    partial class DocumentControl
+    partial class DocumentsControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,8 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.SuspendLayout();
+            // 
+            // DocumentsControl
+            // 
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(245)))), ((int)(((byte)(255)))));
+            this.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.Name = "DocumentsControl";
+            this.Size = new System.Drawing.Size(920, 720);
+            this.Load += new System.EventHandler(this.DocumentsControl_Load);
+            this.ResumeLayout(false);
+
         }
 
         #endregion

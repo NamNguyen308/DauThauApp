@@ -15,11 +15,11 @@ namespace DauThauApp
     {
         private User Authenticate(string username, string password)
         {
-            var users = new List<(string Username, string Password, string Role)>
+                var users = new List<(string Username, string Password, string Role)>
     {
-        ("admin", "123", "Admin"),
-        ("investor1", "456", "Chủ đầu tư"),
-        ("contractor1", "789", "Nhà thầu"),
+                ("admin", "123", "Admin"),
+                ("dauthau", "456", "Chuyên viên đấu thầu"),
+                ("ketoan", "789", "Kế toán"),
     };
 
             var matched = users.FirstOrDefault(u => u.Username == username && u.Password == password);
@@ -31,6 +31,7 @@ namespace DauThauApp
 
             return null;
         }
+
         public LoginForm()
         {
             InitializeComponent();
@@ -65,8 +66,8 @@ namespace DauThauApp
 
                 if (user.Role == "Admin")
                     nextForm = new AdminForm(user);
-                else if (user.Role == "Chủ đầu tư")
-                    nextForm = new InvestorForm(user);
+                else if (user.Role == "Chuyên viên đấu thầu")
+                    nextForm = new TenderForm(user);
                 else
                     nextForm = new ContractorForm(user);
 
