@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\PdfiumViewer.Native.x86_64.v8-xfa.2018.4.8.256\build\PdfiumViewer.Native.x86_64.v8-xfa.props" Condition="Exists('..\packages\PdfiumViewer.Native.x86_64.v8-xfa.2018.4.8.256\build\PdfiumViewer.Native.x86_64.v8-xfa.props')" />
+  <Import Project="..\packages\PDFium.x64.4648.0.0\build\pdfium.x64.props" Condition="Exists('..\packages\PDFium.x64.4648.0.0\build\pdfium.x64.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -12,9 +14,11 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +26,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -36,11 +41,81 @@
     <Reference Include="Guna.UI2, Version=2.0.4.7, Culture=neutral, PublicKeyToken=8b9d14aa5142e261, processorArchitecture=MSIL">
       <HintPath>..\packages\Guna.UI2.WinForms.2.0.4.7\lib\net48\Guna.UI2.dll</HintPath>
     </Reference>
+    <Reference Include="HarfBuzzSharp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\HarfBuzzSharp.7.3.0.3\lib\net462\HarfBuzzSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveChartsCore, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc92a3e13d40c573, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveChartsCore.2.0.0-rc5.4\lib\net462\LiveChartsCore.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveChartsCore.SkiaSharpView, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc92a3e13d40c573, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveChartsCore.SkiaSharpView.2.0.0-rc5.4\lib\net462\LiveChartsCore.SkiaSharpView.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveChartsCore.SkiaSharpView.WinForms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc92a3e13d40c573, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveChartsCore.SkiaSharpView.WinForms.2.0.0-rc5.4\lib\net462\LiveChartsCore.SkiaSharpView.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=9.0.0.5, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.9.0.5\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK, Version=3.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenTK.3.1.0\lib\net20\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK.GLControl, Version=3.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenTK.GLControl.3.1.0\lib\net20\OpenTK.GLControl.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfiumViewer, Version=2.13.0.0, Culture=neutral, PublicKeyToken=91e4789cfb0609e0, processorArchitecture=MSIL">
+      <HintPath>..\packages\PdfiumViewer.2.13.0.0\lib\net20\PdfiumViewer.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="SkiaSharp, Version=2.88.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\SkiaSharp.2.88.9\lib\net462\SkiaSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="SkiaSharp.HarfBuzz, Version=2.88.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\SkiaSharp.HarfBuzz.2.88.9\lib\net462\SkiaSharp.HarfBuzz.dll</HintPath>
+    </Reference>
+    <Reference Include="SkiaSharp.Views.Desktop.Common, Version=2.88.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\SkiaSharp.Views.Desktop.Common.2.88.9\lib\net462\SkiaSharp.Views.Desktop.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="SkiaSharp.Views.WindowsForms, Version=2.88.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
+      <HintPath>..\packages\SkiaSharp.Views.WindowsForms.2.88.9\lib\net462\SkiaSharp.Views.WindowsForms.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
+    <Reference Include="System.Drawing.Common, Version=4.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Drawing.Common.4.7.3\lib\net461\System.Drawing.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IO.Pipelines, Version=9.0.0.5, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Pipelines.9.0.5\lib\net462\System.IO.Pipelines.dll</HintPath>
+    </Reference>
     <Reference Include="System.Management" />
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encodings.Web, Version=9.0.0.5, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.9.0.5\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=9.0.0.5, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.9.0.5\lib\net462\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,6 +125,8 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdminForm.cs">
@@ -57,6 +134,12 @@
     </Compile>
     <Compile Include="AdminForm.Designer.cs">
       <DependentUpon>AdminForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BackupRestoreControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BackupRestoreControl.Designer.cs">
+      <DependentUpon>BackupRestoreControl.cs</DependentUpon>
     </Compile>
     <Compile Include="ContractorForm.cs">
       <SubType>Form</SubType>
@@ -76,17 +159,33 @@
     <Compile Include="DepartmentControl.Designer.cs">
       <DependentUpon>DepartmentControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="DepartmentControl_01.cs" />
+    <Compile Include="DepartmentControl_01.Designer.cs">
+      <DependentUpon>DepartmentControl_01.cs</DependentUpon>
+    </Compile>
     <Compile Include="DocumentControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="DocumentControl.Designer.cs">
       <DependentUpon>DocumentControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="FinanceControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FinanceControl.Designer.cs">
+      <DependentUpon>FinanceControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="LoginForm.Designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NhanVienDetailsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NhanVienDetailsForm.Designer.cs">
+      <DependentUpon>NhanVienDetailsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -96,6 +195,12 @@
     <Compile Include="ReminderControl.Designer.cs">
       <DependentUpon>ReminderControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="ReminderControl_01.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ReminderControl_01.Designer.cs">
+      <DependentUpon>ReminderControl_01.cs</DependentUpon>
+    </Compile>
     <Compile Include="TenderForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -103,8 +208,12 @@
       <DependentUpon>TenderForm.cs</DependentUpon>
     </Compile>
     <Compile Include="User.cs" />
+    <None Include="fgdfg.png" />
     <EmbeddedResource Include="AdminForm.resx">
       <DependentUpon>AdminForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BackupRestoreControl.resx">
+      <DependentUpon>BackupRestoreControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ContractorForm.resx">
       <DependentUpon>ContractorForm.cs</DependentUpon>
@@ -115,11 +224,20 @@
     <EmbeddedResource Include="DepartmentControl.resx">
       <DependentUpon>DepartmentControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DepartmentControl_01.resx">
+      <DependentUpon>DepartmentControl_01.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DocumentControl.resx">
       <DependentUpon>DocumentControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FinanceControl.resx">
+      <DependentUpon>FinanceControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NhanVienDetailsForm.resx">
+      <DependentUpon>NhanVienDetailsForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -129,13 +247,78 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="ReminderControl.resx">
       <DependentUpon>ReminderControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ReminderControl_01.resx">
+      <DependentUpon>ReminderControl_01.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TenderForm.resx">
       <DependentUpon>TenderForm.cs</DependentUpon>
     </EmbeddedResource>
+    <Content Include="Documents\TESTING.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Documents\bgd.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Documents\Biên bản họp thẩm định.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Documents\Báo cáo tiến độ công trình thành phố.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Documents\dauthau.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Documents\G11-TXD-2025.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Documents\G12-TV-2025.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Documents\G13-MSHH-2025.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Documents\G14-TXD-2025.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Documents\Hồ sơ chấm thầu.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Documents\Hồ sơ dự thầu công trình số 101.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Documents\Hồ sơ dự thầu công trình số 15.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Documents\Hồ sơ dự thầu công trình số 23.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Documents\Hồ sơ dự thầu công trình số 37.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Documents\Hồ sơ dự thầu công trình số 6.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Documents\Hồ sơ dự thầu công trình số 7.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Documents\ketoan.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Documents\nhansu.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Documents\phaply.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Documents\Phụ lục tài liệu mời thầu.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -146,9 +329,28 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="reminders.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\PDFium.x64.4648.0.0\build\pdfium.x64.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\PDFium.x64.4648.0.0\build\pdfium.x64.props'))" />
+    <Error Condition="!Exists('..\packages\PdfiumViewer.Native.x86_64.v8-xfa.2018.4.8.256\build\PdfiumViewer.Native.x86_64.v8-xfa.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\PdfiumViewer.Native.x86_64.v8-xfa.2018.4.8.256\build\PdfiumViewer.Native.x86_64.v8-xfa.props'))" />
+    <Error Condition="!Exists('..\packages\HarfBuzzSharp.NativeAssets.macOS.7.3.0.3\build\net462\HarfBuzzSharp.NativeAssets.macOS.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\HarfBuzzSharp.NativeAssets.macOS.7.3.0.3\build\net462\HarfBuzzSharp.NativeAssets.macOS.targets'))" />
+    <Error Condition="!Exists('..\packages\HarfBuzzSharp.NativeAssets.Win32.7.3.0.3\build\net462\HarfBuzzSharp.NativeAssets.Win32.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\HarfBuzzSharp.NativeAssets.Win32.7.3.0.3\build\net462\HarfBuzzSharp.NativeAssets.Win32.targets'))" />
+    <Error Condition="!Exists('..\packages\SkiaSharp.NativeAssets.macOS.2.88.9\build\net462\SkiaSharp.NativeAssets.macOS.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SkiaSharp.NativeAssets.macOS.2.88.9\build\net462\SkiaSharp.NativeAssets.macOS.targets'))" />
+    <Error Condition="!Exists('..\packages\SkiaSharp.NativeAssets.Win32.2.88.9\build\net462\SkiaSharp.NativeAssets.Win32.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SkiaSharp.NativeAssets.Win32.2.88.9\build\net462\SkiaSharp.NativeAssets.Win32.targets'))" />
+  </Target>
+  <Import Project="..\packages\HarfBuzzSharp.NativeAssets.macOS.7.3.0.3\build\net462\HarfBuzzSharp.NativeAssets.macOS.targets" Condition="Exists('..\packages\HarfBuzzSharp.NativeAssets.macOS.7.3.0.3\build\net462\HarfBuzzSharp.NativeAssets.macOS.targets')" />
+  <Import Project="..\packages\HarfBuzzSharp.NativeAssets.Win32.7.3.0.3\build\net462\HarfBuzzSharp.NativeAssets.Win32.targets" Condition="Exists('..\packages\HarfBuzzSharp.NativeAssets.Win32.7.3.0.3\build\net462\HarfBuzzSharp.NativeAssets.Win32.targets')" />
+  <Import Project="..\packages\SkiaSharp.NativeAssets.macOS.2.88.9\build\net462\SkiaSharp.NativeAssets.macOS.targets" Condition="Exists('..\packages\SkiaSharp.NativeAssets.macOS.2.88.9\build\net462\SkiaSharp.NativeAssets.macOS.targets')" />
+  <Import Project="..\packages\SkiaSharp.NativeAssets.Win32.2.88.9\build\net462\SkiaSharp.NativeAssets.Win32.targets" Condition="Exists('..\packages\SkiaSharp.NativeAssets.Win32.2.88.9\build\net462\SkiaSharp.NativeAssets.Win32.targets')" />
 </Project>

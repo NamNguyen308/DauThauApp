@@ -41,25 +41,26 @@
             // 
             this.txtUsername.BackColor = System.Drawing.SystemColors.HighlightText;
             this.txtUsername.Font = new System.Drawing.Font("Segoe UI", 14F);
-            this.txtUsername.Location = new System.Drawing.Point(700, 300);
+            this.txtUsername.Location = new System.Drawing.Point(714, 326);
             this.txtUsername.Name = "txtUsername";
             this.txtUsername.Size = new System.Drawing.Size(300, 39);
             this.txtUsername.TabIndex = 0;
+            this.txtUsername.TextChanged += new System.EventHandler(this.txtUsername_TextChanged_1);
             // 
             // txtPassword
             // 
             this.txtPassword.BackColor = System.Drawing.SystemColors.HighlightText;
             this.txtPassword.Font = new System.Drawing.Font("Segoe UI", 14F);
-            this.txtPassword.Location = new System.Drawing.Point(540 +160, 300+80);
+            this.txtPassword.Location = new System.Drawing.Point(714, 403);
             this.txtPassword.Name = "txtPassword";
+            this.txtPassword.PasswordChar = '●';
             this.txtPassword.Size = new System.Drawing.Size(300, 39);
             this.txtPassword.TabIndex = 1;
-            this.txtPassword.PasswordChar = '●';
             // 
             // btnLogin
             // 
             this.btnLogin.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
-            this.btnLogin.Location = new System.Drawing.Point(590+160, 390 + 80);
+            this.btnLogin.Location = new System.Drawing.Point(768, 490);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(200, 50);
             this.btnLogin.TabIndex = 2;
@@ -72,42 +73,43 @@
             this.lblMessage.AutoSize = true;
             this.lblMessage.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
             this.lblMessage.ForeColor = System.Drawing.Color.Red;
-            this.lblMessage.Location = new System.Drawing.Point(540+160, 350+80);
+            this.lblMessage.Location = new System.Drawing.Point(726, 445);
             this.lblMessage.Name = "lblMessage";
-            this.lblMessage.Size = new System.Drawing.Size(300, 28);
+            this.lblMessage.Size = new System.Drawing.Size(288, 28);
             this.lblMessage.TabIndex = 3;
             this.lblMessage.Text = "Sai tài khoản hoặc mật khẩu!";
             this.lblMessage.Visible = false;
             // 
-            // label1 (Username)
+            // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 14F);
-            this.label1.Location = new System.Drawing.Point(540+160, 180+80);
+            this.label1.Location = new System.Drawing.Point(708, 291);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(124, 32);
+            this.label1.Size = new System.Drawing.Size(120, 32);
             this.label1.TabIndex = 4;
             this.label1.Text = "Tài khoản:";
             // 
-            // label2 (Password)
+            // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 14F);
-            this.label2.Location = new System.Drawing.Point(540+160, 260+80);
+            this.label2.Location = new System.Drawing.Point(708, 368);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(107, 32);
+            this.label2.Size = new System.Drawing.Size(120, 32);
             this.label2.TabIndex = 5;
             this.label2.Text = "Mật khẩu:";
             // 
-            // label3 (Title)
+            // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Bold);
-            this.label3.Location = new System.Drawing.Point(560+160, 80+80);
+            this.label3.Location = new System.Drawing.Point(750, 227);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(190, 46);
+            this.label3.Size = new System.Drawing.Size(227, 46);
             this.label3.TabIndex = 6;
             this.label3.Text = "ĐĂNG NHẬP";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // LoginForm
             // 

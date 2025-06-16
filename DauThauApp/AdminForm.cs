@@ -19,6 +19,7 @@ namespace DauThauApp
         public AdminForm(User user)
         {
             InitializeComponent();
+
             int width = 1280;
             int height = (int)(width * 9.0 / 16); // 720 nếu width là 1280
 
@@ -29,22 +30,50 @@ namespace DauThauApp
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.btnDashboard.Click += new System.EventHandler(this.btnDashboard_Click);
             btnDashboard.BorderColor = Color.FromArgb(0, 120, 215); // Màu viền
-            btnDashboard.BorderThickness = 1;                        // Độ dày viền
-            btnDashboard.BorderRadius = 1;                           // Bo góc
+            btnDashboard.BorderThickness = 3;                        // Độ dày viền
+            btnDashboard.BorderRadius = 20;                           // Bo góc
             btnDashboard.FillColor = navPanel.BackColor;                  // Màu nền
             btnDashboard.ForeColor = Color.Black;                    // Màu chữ
             btnDashboard.HoverState.BorderColor = Color.FromArgb(0, 153, 255); // Viền khi hover
             btnDashboard.HoverState.FillColor = Color.FromArgb(240, 248, 255); // Màu nền khi hover
 
             currentUser = user;
-            this.Text = "Trang quản trị Admin";
+            this.Text = "Trang quản lý cho Chuyên viên";
             this.StartPosition = FormStartPosition.CenterScreen;
 
             ApplyStyleToButton(btnDashboard);
             ApplyStyleToButton(btnDocuments);
             ApplyStyleToButton(btnReminder);
-            ApplyStyleToButton(btnDepartment); // Nếu có
+            ApplyStyleToButton(btnDepartment);
+            ApplyStyleToButton(btnBackupRestore);
+
             ShowUserInfo();
+
+            // Tạo nút Đăng xuất và thêm vào navPanel
+            Guna2Button btnDangXuat = new Guna2Button()
+            {
+                Text = "Đăng xuất",
+                Font = new Font("Segoe UI", 10, FontStyle.Bold),
+                Size = new Size(120, 35),
+                BorderRadius = 10,
+                FillColor = Color.IndianRed,
+                ForeColor = Color.White,
+                Location = new Point(navPanel.Width - 130, 10),
+                Anchor = AnchorStyles.Top | AnchorStyles.Right
+            };
+
+            // Gắn sự kiện Click để quay lại LoginForm
+            btnDangXuat.Click += (s, e) =>
+            {
+                this.Hide(); // Ẩn AdminForm
+                LoginForm loginForm = new LoginForm();
+                loginForm.FormClosed += (s2, e2) => this.Close(); // Đóng AdminForm khi loginForm đóng
+                loginForm.Show();
+            };
+
+            // Thêm nút vào navPanel
+            navPanel.Controls.Add(btnDangXuat);
+
 
         }
 
@@ -155,7 +184,7 @@ namespace DauThauApp
         private void btnDocuments_Click(object sender, EventArgs e)
         {
             mainPanel.Controls.Clear(); // Xóa mọi nội dung hiện có
-            DocumentsControl docControl = new DocumentsControl(); // Tạo control mới
+            DocumentsControl docControl = new DocumentsControl(currentUser);
             docControl.Dock = DockStyle.Fill; // Lấp đầy mainPanel
             mainPanel.Controls.Add(docControl); // Thêm vào panel
         }
@@ -169,15 +198,18 @@ namespace DauThauApp
         }
         private void ApplyStyleToButton(Guna2Button btn)
         {
-            btn.BorderColor = Color.FromArgb(0, 120, 215); // Màu viền chuẩn
+            btn.BorderColor = Color.FromArgb(0, 120, 215);
             btn.BorderThickness = 1;
-            btn.BorderRadius = 1;
-            btn.FillColor = navPanel.BackColor; // Nền giống sidebar
+            btn.BorderRadius = 20; // GÓC BO TRÒN
+            btn.FillColor = navPanel.BackColor;
             btn.ForeColor = Color.Black;
 
-            // Hover
             btn.HoverState.BorderColor = Color.FromArgb(0, 153, 255);
             btn.HoverState.FillColor = Color.FromArgb(240, 248, 255);
+            btn.HoverState.ForeColor = Color.Black;
+
+            btn.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            btn.Size = new Size(160, 45);
         }
 
         private void navPanel_Paint_2(object sender, PaintEventArgs e)
@@ -188,6 +220,13 @@ namespace DauThauApp
         private void label1_Click_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnBackupRestore_Click(object sender, EventArgs e)
+        {
+            var control = new BackupRestoreControl();
+            mainPanel.Controls.Clear(); // mainPanel là panel chứa các control động
+            mainPanel.Controls.Add(control);
         }
     }
 }
