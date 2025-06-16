@@ -1,16 +1,21 @@
-﻿using System;
+﻿using Guna.UI2.WinForms;
+using PdfiumViewer;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Guna.UI2.WinForms;
 
 namespace DauThauApp
 {
     public partial class DashboardControl : UserControl
     {
         private Guna2ProgressIndicator loading;
-        private Guna2MessageDialog messageDialog;
+        private Panel pdfPanel;
+        private PdfiumViewer.PdfViewer pdfViewer;
+        private string currentPdfFileName;
 
         public DashboardControl()
         {
@@ -20,7 +25,6 @@ namespace DauThauApp
 
         private void LoadUI()
         {
-            // Tiêu đề
             Label title = new Label()
             {
                 Text = "Tổng Quan Gói Thầu",
@@ -30,7 +34,8 @@ namespace DauThauApp
             };
             this.Controls.Add(title);
 
-            // Loader đậm màu
+
+
             loading = new Guna2ProgressIndicator()
             {
                 Location = new Point(500, 30),
@@ -41,34 +46,78 @@ namespace DauThauApp
             };
             this.Controls.Add(loading);
 
-            // MessageDialog
-            messageDialog = new Guna2MessageDialog()
-            {
-                Caption = "Chi tiết gói thầu",
-                Buttons = MessageDialogButtons.OK,
-                Icon = MessageDialogIcon.Information,
-                Style = MessageDialogStyle.Light
-            };
 
-            // FlowLayoutPanel chứa các card
+
+
             FlowLayoutPanel flow = new FlowLayoutPanel()
             {
                 Location = new Point(30, 80),
-                Size = new Size(960, 600),
+                Size = new Size(1100, 620),
                 AutoScroll = true,
-                WrapContents = false,
                 FlowDirection = FlowDirection.TopDown,
+                WrapContents = false,
                 BackColor = Color.Transparent
             };
             this.Controls.Add(flow);
 
-            // Danh sách gói thầu
-            var tenders = new List<(string Ma, string Ten, decimal SoTien, DateTime ThoiHan, string ChuDauTu, string Loai, string TrangThai)>
+            pdfPanel = new Panel()
             {
-                ("G11-TXD-2025", "Gói thầu số 11: Tư vấn thiết kế và Trường THCS Quảng Phú", 1200000000, DateTime.Now.AddDays(20), "Phòng GD&ĐT TP.Quảng Ngãi", "Tư vấn xây dựng", "Đang thực hiện"),
-                ("G12-TV-2025", "Gói thầu số 21: Tư vấn xây dựng tòa nhà showroom Hoàn Phước", 9083000099, DateTime.Now.AddDays(10), "Hoàn Phước", "Tư vấn", "Đang xét thầu"),
-                ("G13-MSHH-2025", "Gói thầu số 3: Tư vấn thiết kế trung tâm y tế dự phòng ", 21300350034, DateTime.Now.AddDays(30), "Sở Y Tế Tỉnh", "Tư vấn", "Đã đóng"),
-                ("G14-TXD-2025", "Gói thầu 46: Cải tạo Trường THPT Chuyên Lê Khiết", 100000000000, DateTime.Now.AddDays(15), "Sở GD&ĐT Tỉnh", "Xây lắp", "Đang mời thầu")
+                Location = new Point(30, 30),
+                Size = new Size(1000, 650),
+                Visible = false,
+                BorderStyle = BorderStyle.FixedSingle,
+                BackColor = Color.White,
+                Padding = new Padding(20)
+            };
+            this.Controls.Add(pdfPanel);
+
+            pdfViewer = new PdfiumViewer.PdfViewer()
+            {
+                Dock = DockStyle.Fill,
+                ZoomMode = PdfViewerZoomMode.FitWidth
+            };
+            pdfPanel.Controls.Add(pdfViewer);
+
+            Guna2Button btnClose = new Guna2Button()
+            {
+                Text = "Đóng",
+                Size = new Size(100, 30),
+                Location = new Point(800, 90),
+                FillColor = Color.Gray,
+                ForeColor = Color.White,
+                BorderRadius = 6,
+                // Nếu muốn tắt viền thì thêm:
+                // BorderThickness = 0,
+            };
+            btnClose.Click += (s, e) =>
+            {
+                pdfPanel.Visible = false;
+                pdfViewer.Document?.Dispose();
+            };
+            pdfPanel.Controls.Add(btnClose);
+            btnClose.BringToFront();
+
+
+            Guna2Button btnDownload = new Guna2Button()
+            {
+                Text = "Tải xuống",
+                Size = new Size(100, 30),
+                Location = new Point(680, 90),
+                FillColor = Color.ForestGreen,
+                ForeColor = Color.White,
+                BorderRadius = 6
+            };
+            btnDownload.Click += BtnDownload_Click;
+            pdfPanel.Controls.Add(btnDownload);
+            btnDownload.BringToFront();
+
+            // Danh sách gói thầu + file PDF
+            var tenders = new List<(string Ma, string Ten, decimal SoTien, DateTime ThoiHan, string ChuDauTu, string Loai, string TrangThai, string FilePDF)>
+            {
+                ("G11-TXD-2025", "Gói thầu số 11: Tư vấn thiết kế Trường THCS Quảng Phú", 1200000000, DateTime.Now.AddDays(20), "Phòng GD&ĐT TP.Quảng Ngãi", "Tư vấn xây dựng", "Đang thực hiện", "G11-TXD-2025.pdf"),
+                ("G12-TV-2025", "Gói thầu số 21: Tư vấn xây dựng showroom Hoàn Phước", 9083000099, DateTime.Now.AddDays(10), "Hoàn Phước", "Tư vấn", "Đang xét thầu", "G12-TV-2025.pdf"),
+                ("G13-MSHH-2025", "Gói thầu số 3: Thiết kế trung tâm y tế dự phòng", 21300350034, DateTime.Now.AddDays(30), "Sở Y Tế Tỉnh", "Tư vấn", "Đã đóng", "G13-MSHH-2025.pdf"),
+                ("G14-TXD-2025", "Gói thầu 46: Cải tạo Trường THPT Chuyên Lê Khiết", 100000000000, DateTime.Now.AddDays(15), "Sở GD&ĐT Tỉnh", "Xây lắp", "Đang mời thầu", "G14-TXD-2025.pdf")
             };
 
             int cardHeight = 170;
@@ -76,30 +125,31 @@ namespace DauThauApp
 
             foreach (var t in tenders)
             {
-                Panel card = new Panel()
+                Guna2Panel card = new Guna2Panel()
                 {
-                    Size = new Size(cardWidth, cardHeight),
-                    BackColor = Color.White,
-                    BorderStyle = BorderStyle.FixedSingle,
-                    Margin = new Padding(0, 0, 0, 15)
+                    Size = new Size(950, 180),
+                    BorderRadius = 15,
+                    FillColor = Color.White,
+                    BorderColor = Color.LightGray,
+                    BorderThickness = 1,
+                    Margin = new Padding(0, 0, 0, 15),
+                    ShadowDecoration = { Enabled = true, BorderRadius = 15, Color = Color.Gray, Shadow = new Padding(3) }
                 };
 
                 Label lblTen = new Label()
                 {
-                    Text = $"[{t.Ma}] {t.Ten}",
+                    Text = $"📌 [{t.Ma}] {t.Ten}",
                     Font = new Font("Segoe UI", 14, FontStyle.Bold),
-                    AutoSize = true,
-                    Location = new Point(15, 15),
-                    MaximumSize = new Size(cardWidth - 150, 0)
+                    Location = new Point(20, 20),
+                    AutoSize = true
                 };
 
                 Label lblLoai = new Label()
                 {
-                    Text = $"🔹 Loại: {t.Loai} | Chủ đầu tư: {t.ChuDauTu}",
+                    Text = $"📁 Loại: {t.Loai} | Chủ đầu tư: {t.ChuDauTu}",
                     Font = new Font("Segoe UI", 11),
-                    ForeColor = Color.DarkSlateGray,
-                    AutoSize = true,
-                    Location = new Point(15, 55)
+                    Location = new Point(20, 55),
+                    AutoSize = true
                 };
 
                 Label lblTien = new Label()
@@ -107,38 +157,76 @@ namespace DauThauApp
                     Text = $"💰 Số tiền: {t.SoTien:N0} VND",
                     Font = new Font("Segoe UI", 11),
                     ForeColor = Color.DarkGreen,
-                    AutoSize = true,
-                    Location = new Point(15, 85)
+                    Location = new Point(20, 85),
+                    AutoSize = true
                 };
 
                 Label lblThoiHan = new Label()
                 {
-                    Text = $"📅 Hạn nộp: {t.ThoiHan:dd/MM/yyyy} | Trạng thái: {t.TrangThai}",
+                    Text = $"📅 Hạn nộp: {t.ThoiHan:dd/MM/yyyy}",
                     Font = new Font("Segoe UI", 10, FontStyle.Italic),
-                    ForeColor = Color.DarkRed,
-                    AutoSize = true,
-                    Location = new Point(15, 115)
+                    ForeColor = Color.DimGray,
+                    Location = new Point(20, 115),
+                    AutoSize = true
                 };
+
+                Label lblTrangThai = new Label()
+                {
+                    Text = $"📌 Trạng thái: {t.TrangThai}",
+                    Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                    ForeColor = GetTrangThaiColor(t.TrangThai),
+                    Location = new Point(20, 140),
+                    AutoSize = true
+                };
+
 
                 Guna2Button btnChiTiet = new Guna2Button()
                 {
                     Text = "Xem chi tiết",
-                    Font = new Font("Segoe UI", 9F),
-                    Size = new Size(110, 30),
-                    Location = new Point(cardWidth - 130, cardHeight - 45),
-                    BorderRadius = 6,
+                    Size = new Size(130, 36),
+                    Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                    Location = new Point(790, 120),
                     FillColor = Color.MediumSlateBlue,
-                    ForeColor = Color.White
+                    ForeColor = Color.White,
+                    BorderRadius = 10,
+                    Tag = t.FilePDF
                 };
                 btnChiTiet.HoverState.FillColor = Color.MediumPurple;
 
                 btnChiTiet.Click += async (s, e) =>
                 {
                     loading.Visible = true;
-                    await Task.Delay(1500);
+                    await Task.Delay(500);
                     loading.Visible = false;
-                    messageDialog.Text = $"Chi tiết gói thầu:\n\n{t.Ten}\nChủ đầu tư: {t.ChuDauTu}\nSố tiền: {t.SoTien:N0} VND";
-                    messageDialog.Show();
+
+                    try
+                    {
+                        string fileName = (string)((Guna2Button)s).Tag;
+                        string filePath = Path.Combine(Application.StartupPath, "Documents", fileName);
+
+                        if (!File.Exists(filePath))
+                        {
+                            MessageBox.Show("Không tìm thấy file PDF!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        pdfViewer.Document?.Dispose();
+                        pdfViewer.Document = PdfiumViewer.PdfDocument.Load(filePath);
+                        pdfPanel.Visible = true;
+                        pdfPanel.BringToFront();
+                        currentPdfFileName = fileName;
+
+                        // Gán Tag cho btnDownload (đã thêm ở trên) để tải đúng file
+                        var downloadBtn = pdfPanel.Controls.OfType<Guna2Button>().FirstOrDefault(b => b.Text == "Tải xuống");
+                        if (btnDownload != null)
+                        {
+                            btnDownload.Tag = fileName;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lỗi khi mở PDF: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 };
 
                 card.Controls.Add(lblTen);
@@ -150,9 +238,58 @@ namespace DauThauApp
             }
         }
 
+
+        private void BtnDownload_Click(object sender, EventArgs e)
+        {
+            string baseFolder = Path.Combine(Application.StartupPath, "Documents");
+            string pdfFileName = ((Guna2Button)sender).Tag as string;
+            string pdfPath = Path.Combine(baseFolder, pdfFileName);
+
+            if (File.Exists(pdfPath))
+            {
+                using (SaveFileDialog sfd = new SaveFileDialog())
+                {
+                    sfd.FileName = pdfFileName;
+                    sfd.Filter = "PDF files (*.pdf)|*.pdf|All files (*.*)|*.*";
+                    if (sfd.ShowDialog() == DialogResult.OK)
+                    {
+                        try
+                        {
+                            File.Copy(pdfPath, sfd.FileName, overwrite: true);
+                            MessageBox.Show("Tải xuống thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Lỗi khi tải xuống: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Không tìm thấy file PDF để tải xuống.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private Color GetTrangThaiColor(string status)
+        {
+            switch (status)
+            {
+                case "Đang thực hiện":
+                    return Color.OrangeRed;
+                case "Đang mời thầu":
+                    return Color.DodgerBlue;
+                case "Đang xét thầu":
+                    return Color.MediumSlateBlue;
+                case "Đã đóng":
+                    return Color.Gray;
+                default:
+                    return Color.Black;
+            }
+        }
+
+
         private void DashboardControl_Load(object sender, EventArgs e)
         {
-
         }
     }
 }

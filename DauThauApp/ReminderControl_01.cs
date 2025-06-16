@@ -8,12 +8,12 @@ using System.Windows.Forms;
 
 namespace DauThauApp
 {
-    public partial class ReminderControl : UserControl
+    public partial class ReminderControl_01 : UserControl
     {
         private List<Reminder> reminders;
         private string dataFile = "reminders.json";
 
-        public ReminderControl()
+        public ReminderControl_01()
         {
             InitializeComponent();
             LoadData();
@@ -65,7 +65,7 @@ namespace DauThauApp
 
             Label title = new Label()
             {
-                Text = "Yêu Cầu Từ Các Bộ Phận",
+                Text = "Yêu cầu cần xử lý",
                 Font = new Font("Segoe UI", 16F, FontStyle.Bold),
                 AutoSize = true,
                 Location = new Point(30, 30)
@@ -99,8 +99,7 @@ namespace DauThauApp
                     BorderThickness = 1,
                     Margin = new Padding(0, 0, 0, 15),
                     ShadowDecoration = { Enabled = true, BorderRadius = 15, Color = Color.Gray, Shadow = new Padding(3) }
-
-            
+                
                 };
 
                 Label lblNoiDung = new Label()
@@ -135,7 +134,7 @@ namespace DauThauApp
                     Width = 150,
                     Anchor = AnchorStyles.Top | AnchorStyles.Right,
                     BorderRadius = 8,
-                    FillColor = Color.LightSlateGray,
+                    FillColor = Color.MediumSlateBlue,
                     ForeColor = Color.White,
                     Font = new Font("Segoe UI", 11F),
                     ItemHeight = 30,
@@ -207,6 +206,7 @@ namespace DauThauApp
                 card.Controls.Add(btnNhanXet);
 
 
+
                 comboTrangThai.Items.AddRange(new object[]
                 {
                     "Đang lập",
@@ -248,6 +248,11 @@ namespace DauThauApp
         }
 
         private void ReminderControl_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ReminderControl_01_Load(object sender, EventArgs e)
         {
 
         }
